@@ -14,7 +14,7 @@
         <section>
             <button class="reg">REGISTER</button></a>
             
-            <form method="post" action="https://script.google.com/macros/s/AKfycbxnRFAuuw7u7dSQJj8VEjBRnNDPhsNFj5lxMn8E6A9shufpROcak2GpGMQF4JxKY8CF/exec">
+            <form method="post" action="https://script.google.com/macros/s/AKfycbw9EacXWoZHtuOK-6cpJmzcC0dfRLxnY_4KLmBIvCUZPUU_z7HhxCBWObn008oJFHbm/exec">
               <input type="hidden" name="type" value="registration" />
               <fieldset>
                 <label for="name">
@@ -24,7 +24,7 @@
         
                 <label for="email">
                   Enter Your Email:
-                  <input id="email" name="email" type="email" required />
+                  <input id="email" name="email" type="email" placeholder="Enter valid email" required />
                 </label>
         
                 <label for="ton-wallet">
@@ -39,15 +39,12 @@
                   <input id="location" name="location" type="text" />
                 </label>
       
-                <label for="role">
-                  Select Your Role(s):
-                  <select id="role" name="role[]" multiple>
-                      <option value="exhibitor">Exhibitor</option>
-                      <option value="host">Host</option>
-                      <option value="visitor">Visitor</option>
-                      <option value="collector">Collector</option>
-                </label>
-              
+                <label for="role">Select Your Role(s):</label>
+                  <select id="role" name="role" multiple required>
+                    <option value="host">Host</option>
+                    <option value="visitor">Visitor</option>
+                    <option value="collector">Collector</option>
+                  </select>             
               </fieldset>
         
               <label for="terms-and-conditions">
