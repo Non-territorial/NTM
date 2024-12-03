@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    max-width: 320px;  
+    max-width: 280px;  
     width: 90%;  
     margin: 0 auto;
     padding: 20px;
@@ -320,17 +320,17 @@ p {
 }
 form {
     font-family: 'ISOCPEUR';
-    width: 25vw;
+    width: 23vw;
     max-width: 500px;
     min-width: 300px;
-    margin: 0 auto;
     padding-bottom: 2em;
+    margin-left: -10px;
   }
   
   fieldset {
     border: none;
-    padding: 2rem 0;
     border-bottom: 3px solid #3b3b4f;
+    
   }
   
   fieldset:last-of-type {
@@ -347,7 +347,7 @@ form {
   select {
     font-family: 'ISOCPEUR';
     margin: 10px 0 0 0;
-    width: 100%;
+    width: 90%;
     min-height: 2em;
   }
   
@@ -360,7 +360,7 @@ form {
   
   .inline {
     width: unset;
-    margin: 0 0.5em 0 0;
+    margin: 0;
     vertical-align: middle;
   }
   
@@ -373,7 +373,7 @@ form {
     font-size: 1.1rem;
     background-color: #3b3b4f;
     border-color: white;
-    min-width: 300px;
+    min-width: 250px;
   }
   
   .inline{
@@ -383,4 +383,8 @@ form {
   a {
     color: #dfdfe2;
   }
+  
+
+
+
   
