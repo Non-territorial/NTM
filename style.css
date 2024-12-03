@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'ISOCPEUR'; 
+    src: url('./isocpeur.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
 body {
     height: 100vh;
     margin: 0;
