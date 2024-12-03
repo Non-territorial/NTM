@@ -30,15 +30,15 @@ img {
     width: 150%;
     max-height: 400px;
     object-fit: contain;
-    margin-left: -80px;
+    margin-left: -75px;
     margin-bottom: -75px;
     margin-top: -50px;
 }
 
 .museum {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.6);
-    margin: -15px auto 35px;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    margin: 15px auto;
 }
 
 button {
