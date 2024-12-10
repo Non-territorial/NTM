@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - NONTERRITORIAL MUSEUM</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <main>
+            <img src="https://i.imgur.com/VUcU36K.png" alt="glasses" class="logo-glasses">
+            <h1 class="museum">NONTERRITORIAL MUSEUM</h1>
+            <section>
+                
+                <form method="post" action="https://script.google.com/macros/s/AKfycbw9EacXWoZHtuOK-6cpJmzcC0dfRLxnY_4KLmBIvCUZPUU_z7HhxCBWObn008oJFHbm/exec">
+                  <input type="hidden" name="type" value="registration" />
+                  <fieldset>
+                    <label for="name">
+                      Your Name:
+                      <input id="name" name="name" type="text" placeholder="Full name" required />
+                    </label>
+            
+                    <label for="email">
+                      Enter Your Email:
+                      <input id="email" name="email" type="email" placeholder="Enter valid email" required />
+                    </label>
+            
+                    <label for="ton-wallet">
+                      TON Wallet:
+                      <input id="ton-wallet" name="ton-wallet" type="text" pattern="[a-zA-Z0-9_-]{48,64}"
+                      title="Please enter a valid TON wallet address (48-64 characters, letters, numbers, hyphens, and underscores)."
+                      required />
+                    </label>
+
+                    <label for="location">
+                      Location (Digital or Physical):
+                      <input id="location" name="location" type="text" />
+                    </label>
+          
+                    <label for="role">Select Your Role(s):</label>
+                      <select id="role" name="role" multiple required>
+                        <option value="host">Host</option>
+                        <option value="visitor">Visitor</option>
+                        <option value="collector">Collector</option>
+                      </select>             
+                  </fieldset>
+            
+                  <label for="terms-and-conditions">
+                    <input class="inline" id="terms-and-conditions" type="checkbox" name="terms-and-conditions" required/>
+                    I accept the
+                    <a href="https://nonterritorial.foundation">terms and conditions</a>
+                  </label>
+            
+                  <input type="submit" value="Submit" />
+                </form>  
+            </section>
+            <nav>
+
+            <div class="bottom-nav">
+                    <a href="/" class="button small">Home</a>
+                    <a href="/about" class="button small">About</a>
+                    <a href="/roadmap" class="button small">Roadmap</a>
+                    <a href="/qa" class="button small">Q&A</a>
+                </div>
+            </nav>
+        </main>
+        <footer class="nav-logo">
+            <img src="https://i.imgur.com/sryvdsl.png" alt="Navigation Logo" class="logo">
+        </footer>
+    </div>
+</body>
+</html>

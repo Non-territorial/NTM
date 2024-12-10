@@ -1,0 +1,376 @@
+@font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('/font/IBMPlexMono-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('/font/IBMPlexMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    font-family: 'IBM Plex Mono';
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.container {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    border: 0.5px solid white;
+    border-radius: 10px;
+}
+
+.logo-glasses {
+    width: 150%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-left: -80px;
+    margin-bottom: -75px;
+    margin-top: -50px;
+}
+
+.museum {
+    font-size: 14px;
+    color: white;
+    margin: 5px auto 40px;
+    letter-spacing: 1px;
+}
+
+/* Navigation Styles */
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.button {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 0.3px solid rgba(255, 255, 255, 0.6);
+    border-radius: 25px;
+    padding: 5px 5px;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono';
+    display: inline-block;
+    min-width: 90px;
+    text-align: center;
+}
+
+.bottom-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 40px 0 30px;
+}
+
+.bottom-nav .button {
+    font-size: 12px;
+    padding: 5px 10px;
+    min-width: unset;
+    border-width: 0.3px;
+}
+
+/* Section Styles */
+.register {
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+
+.collect {
+    margin-top: 30px;
+    margin-bottom: -20px;
+}
+
+.host-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 30px 0;
+    position: relative;
+    height: 80px;
+}
+
+.host {
+    border-radius: 50%;
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: unset;
+    border-width: 0.3px;
+    font-size: 16px;
+}
+
+.preview {
+    padding: 3px 20px; 
+    font-size: 16px; 
+    margin: 75px auto 20px;
+    text-align: center;  
+    display:block
+}
+
+.hosting {
+    padding: 3px 20px; 
+    font-size: 16px; 
+    margin: 0 auto 100px;
+    text-align: center; 
+    display: block; 
+}
+
+.explore {
+    margin: 100px 0 100px;
+}
+
+.tg {
+    padding: 3px 20px; 
+    font-size: 16px; 
+    margin: 100px auto 20px;
+    text-align: center; 
+    display:block
+    
+}
+
+.tg2 {
+    padding: 3px 20px; 
+    font-size: 16px; 
+    margin: 0 auto 120px;
+    text-align: center; 
+    display: block; 
+}
+.exhibit, .join {
+    min-width: 70px;
+}
+
+.exhibit {
+    position: absolute;
+    left: 15px;
+    transform: translateX(0);
+}
+
+.join {
+    position: absolute;
+    right: 15px;
+    transform: translateX(0);
+}
+
+.membership {
+    margin: -20px 0 40px;
+}
+
+/* Content Styles */
+.title {
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    margin-top: -30px;
+}
+
+.exhibition-title {
+    font-size: 20px;
+}
+
+hr {
+    border: 0.5px solid rgba(255, 255, 255, 0.6);
+    width: 90%;
+    margin: 10px auto;
+}
+
+p {
+    font-family: 'IBM Plex Mono';
+    font-size: 14px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 5px 0;
+    line-height: 1.6;
+}
+
+section p {
+    max-width: 280px;
+    margin: 0 auto;
+    white-space: normal;
+    text-align: center;
+}
+
+.question {
+    color: white;
+    margin-top: 40px;
+}
+
+.text {
+    padding: 60px;
+}
+
+.two {
+    padding: 95px;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: block;
+    margin: 10px auto;
+}
+
+.dropdown-button {
+    background-color: rgba(0, 0, 0, 0.98);
+    font-family: 'IBM Plex Mono';
+    color: rgba(255, 255, 255, 0.6); 
+    border: 0.5px solid white;
+    border-radius: 10px;
+    padding: 5px 15px;
+    font-size: 14px;
+    display: block; 
+    margin: 20px auto 50px; 
+    text-align: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 110%; 
+    background-color: rgba(0, 0, 0, 0.98);
+    color: rgba(255, 255, 255, 0.7);
+    border: 0.5px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 200px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    margin-top: 5px; 
+}
+
+/* Form Styles */
+form {
+    font-family: 'IBM Plex Mono';
+    font-size: 13px;
+    width: 90%;
+    max-width: 500px;
+    min-width: 300px;
+    padding-bottom: 2em;
+    margin: 0 auto;
+}
+
+fieldset {
+    border: none;
+    border-bottom: 3px solid #3b3b4f;
+}
+
+fieldset:last-of-type {
+    border-bottom: none;
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+input,
+textarea,
+select {
+    font-family: 'IBM Plex Mono';
+    font-size: 12px;
+    margin: 10px 0 0 0;
+    width: 100%;
+    min-height: 2em;
+    background-color: rgba(0, 0, 0, 0.98);
+    border: 0.5px solid #616770;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.inline {
+    width: unset;
+    margin: 0;
+    vertical-align: middle;
+    display: inline;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 60%;
+    margin: 1em auto;
+    height: 2em;
+    font-size: 0.9rem;
+    background-color: #3b3b4f;
+    border-color: white;
+    min-width: 250px;
+    cursor: pointer;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+}
+
+footer .logo {
+    width: 80px;
+    height: auto;
+}
+
+/* Link Styles */
+a {
+    color: #dfdfe2;
+    text-decoration: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 20px 0;
+    }
+
+    .logo-glasses {
+        width: 120%;
+        margin-left: -30px;
+    }
+
+    .bottom-nav {
+        flex-wrap: wrap;
+    }
+
+    .text, .two {
+        padding: 20px;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    input[type="submit"] {
+        width: 80%;
+        min-width: unset;
+    }
+}
+
+
+
