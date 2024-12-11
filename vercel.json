@@ -16,8 +16,16 @@
         "dest": "/app.js"
       },
       {
+        "src": "/twa/(.*)",
+        "dest": "/app.js"
+      },
+      {
         "src": "/js/(.*)",
         "dest": "/public/js/$1"
+      },
+      {
+        "src": "/css/(.*)",
+        "dest": "/public/css/$1"
       },
       {
         "src": "/(.*)",

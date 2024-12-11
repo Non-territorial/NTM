@@ -7,10 +7,10 @@ console.log("NT Museum Telegram Mini App is running!");
 
 // Main render function
 function renderHome() {
-    const app = document.getElementById('app');
+    const app = document.getElementById('twa-app');
     app.innerHTML = `
+        <h1>Welcome to NT Museum</h1>
         <div class="container">
-            <h1>NONTERRITORIAL MUSEUM</h1>
             <div class="button-container">
                 <button onclick="showExhibit()">EXHIBIT</button>
                 <button onclick="showCollect()">COLLECT</button>
@@ -35,10 +35,12 @@ function showHome() {
 }
 
 function showExhibit() {
-    const app = document.getElementById('app');
+    const app = document.getElementById('twa-app');
     app.innerHTML = `
+        <h1>Welcome to NT Museum</h1>
         <div class="container">
-            <h1>NONTERRITORIAL MUSEUM</h1>
+            <h2>Exhibits</h2>
+            <p>Explore our latest digital exhibits.</p>
             <div class="button-container">
                 <button onclick="showCollect()">COLLECT</button>
                 <button onclick="showHost()">HOST</button>

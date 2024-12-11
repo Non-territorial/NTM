@@ -18,6 +18,11 @@ app.get('/twa', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
 });
 
+// Catch-all route for other /twa/* paths
+app.get('/twa/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
+});
+
 // Serve the bundled JavaScript
 app.get('/js/twa-bundle.js', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'js', 'twa-bundle.js'));
