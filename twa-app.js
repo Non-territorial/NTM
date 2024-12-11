@@ -35,13 +35,22 @@ function showHome() {
 }
 
 function showExhibit() {
-    console.log("Showing exhibit view");
     const app = document.getElementById('app');
     app.innerHTML = `
         <div class="container">
-            <h1>Exhibits</h1>
-            <p>Explore our latest digital exhibits.</p>
-            <button onclick="showHome()">Back to Home</button>
+            <h1>NONTERRITORIAL MUSEUM</h1>
+            <div class="button-container">
+                <button onclick="showCollect()">COLLECT</button>
+                <button onclick="showHost()">HOST</button>
+                <button onclick="showJoin()">JOIN</button>
+                <button onclick="showMembership()">MEMBERSHIP</button>
+            </div>
+            <div class="navigation">
+                <a href="#" onclick="showHome()">Home</a>
+                <a href="#" onclick="showAbout()">About</a>
+                <a href="#" onclick="showRoadmap()">Roadmap</a>
+                <a href="#" onclick="showQA()">Q&A</a>
+            </div>
         </div>
     `;
 }
@@ -104,5 +113,4 @@ window.showMembership = showMembership;
 window.showAbout = showAbout;
 window.showRoadmap = showRoadmap;
 window.showQA = showQA;
-
 
