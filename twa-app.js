@@ -37,60 +37,17 @@ function showHome() {
 function showExhibit() {
     const app = document.getElementById('twa-app');
     app.innerHTML = `
-        <h1>Welcome to NT Museum</h1>
+        <h1>NT Museum Exhibits</h1>
         <div class="container">
-            <h2>Exhibits</h2>
             <p>Explore our latest digital exhibits.</p>
             <div class="button-container">
-                <button onclick="showCollect()">COLLECT</button>
-                <button onclick="showHost()">HOST</button>
-                <button onclick="showJoin()">JOIN</button>
-                <button onclick="showMembership()">MEMBERSHIP</button>
-            </div>
-            <div class="navigation">
-                <a href="#" onclick="showHome()">Home</a>
-                <a href="#" onclick="showAbout()">About</a>
-                <a href="#" onclick="showRoadmap()">Roadmap</a>
-                <a href="#" onclick="showQA()">Q&A</a>
+                <button onclick="showHome()">Back to Home</button>
             </div>
         </div>
     `;
 }
 
-function showCollect() {
-    console.log("Showing collect view");
-    // Implement collect view
-}
-
-function showHost() {
-    console.log("Showing host view");
-    // Implement host view
-}
-
-function showJoin() {
-    console.log("Showing join view");
-    // Implement join view
-}
-
-function showMembership() {
-    console.log("Showing membership view");
-    // Implement membership view
-}
-
-function showAbout() {
-    console.log("Showing about view");
-    // Implement about view
-}
-
-function showRoadmap() {
-    console.log("Showing roadmap view");
-    // Implement roadmap view
-}
-
-function showQA() {
-    console.log("Showing Q&A view");
-    // Implement Q&A view
-}
+// ... (other view functions)
 
 // Initialize the main button
 WebApp.MainButton
@@ -108,11 +65,5 @@ document.addEventListener('DOMContentLoaded', () => {
 // Make functions available globally
 window.showHome = showHome;
 window.showExhibit = showExhibit;
-window.showCollect = showCollect;
-window.showHost = showHost;
-window.showJoin = showJoin;
-window.showMembership = showMembership;
-window.showAbout = showAbout;
-window.showRoadmap = showRoadmap;
-window.showQA = showQA;
+// ... (other global function assignments)
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+
 const port = process.env.PORT || 3000;
 
 // Serve static files from the 'public' directory
@@ -13,26 +14,21 @@ app.set('views', path.join(__dirname, 'views'));
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
-// Telegram Mini App route - must come before other routes
-app.get('/twa', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
-});
+// Middleware to check if the request is from Telegram Mini App
+const isTelegramWebApp = (req) => {
+    return req.get('User-Agent').includes('TelegramWebApp') || req.query.twa === 'true';
+};
 
-// Catch-all route for other /twa/* paths
-app.get('/twa/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
-});
-
-// Serve the bundled JavaScript
-app.get('/js/twa-bundle.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'js', 'twa-bundle.js'));
+// Root route handler
+app.get('/', (req, res) => {
+    if (isTelegramWebApp(req)) {
+        res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
+    } else {
+        res.render('home');
+    }
 });
 
 // Your existing routes
-app.get('/', (req, res) => {
-    res.render('home');
-});
-
 app.get('/register', (req, res) => {
     res.render('register');
 });
@@ -73,13 +69,18 @@ app.get('/curators-glasses', (req, res) => {
     res.render('curators-glasses');
 });
 
-// Error handling for 404
-app.use((req, res, next) => {
-    if (req.path.startsWith('/twa')) {
+// Catch-all route for Telegram Mini App
+app.get('*', (req, res, next) => {
+    if (isTelegramWebApp(req)) {
         res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
     } else {
-        res.status(404).send("Sorry, that page doesn't exist!");
+        next();
     }
+});
+
+// Error handling for 404
+app.use((req, res) => {
+    res.status(404).render('404');
 });
 
 // Handle server errors
@@ -88,11 +89,11 @@ app.use((err, req, res, next) => {
     res.status(500).render('500');
 });
 
-module.exports = app;
-
 if (require.main === module) {
     app.listen(port, () => {
         console.log(`Server running on port ${port}`);
     });
 }
+
+module.exports = app;
 
