@@ -225,8 +225,8 @@ section p {
 }
 
 .two {
-    margin: 50px 0 50px;
-}
+    padding: 100px;
+ }
 
 /* Dropdown Styles */
 .dropdown {
