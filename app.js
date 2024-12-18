@@ -1,23 +1,25 @@
-require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose'); // Import Mongoose
 const app = express();
 
-// Load Environment Variables
+// Port configuration
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI;
 
 // Connect to MongoDB
-mongoose.connect(MONGO_URI)
-    .then(() => console.log('✅ MongoDB connected successfully!'))
-    .catch((err) => console.error('❌ MongoDB connection error:', err.message));
+const MONGO_URI = 'mongodb+srv://info:J8YwydCuC72vZJEm@ntm.t3mz0.mongodb.net/ntm?retryWrites=true&w=majority';
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('MongoDB connected successfully!'))
+    .catch((err) => console.error('MongoDB connection error:', err));
 
 // Define Mongoose Schema and Model
 const waitingListSchema = new mongoose.Schema({
     email: { type: String, required: true },
     source: { type: String, default: 'general' },
-    timestamp: { type: Date, default: Date.now },
+    timestamp: { type: Date, default: Date.now }
 });
 
 const WaitingList = mongoose.model('WaitingList', waitingListSchema);
@@ -53,6 +55,7 @@ app.get('/waiting-list', (req, res) => {
     res.render('waiting-list', { source });
 });
 
+
 // API Route to Handle Form Submission and Save to MongoDB
 app.post('/api/waiting-list', async (req, res) => {
     try {
@@ -67,10 +70,10 @@ app.post('/api/waiting-list', async (req, res) => {
         const newEntry = new WaitingList({ email, source });
         await newEntry.save();
 
-        console.log(`✅ New signup saved: ${email}, Source: ${source}`);
+        console.log(`New signup saved: ${email}, Source: ${source}`);
         res.status(200).json({ message: 'Successfully added to the waiting list' });
     } catch (err) {
-        console.error('❌ Error saving to waiting list:', err.message);
+        console.error('Error saving to waiting list:', err.message);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
@@ -87,6 +90,15 @@ app.get('/join', (req, res) => res.render('join'));
 app.get('/membership', (req, res) => res.render('membership'));
 app.get('/curators-glasses', (req, res) => res.render('curators-glasses'));
 
+// Catch-all route for Telegram Mini App
+app.get('*', (req, res, next) => {
+    if (isTelegramWebApp(req)) {
+        res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
+    } else {
+        next();
+    }
+});
+
 // Error handling for 404 (Not Found)
 app.use((req, res) => {
     res.status(404).render('404');
@@ -94,13 +106,13 @@ app.use((req, res) => {
 
 // Error handling for 500 (Internal Server Error)
 app.use((err, req, res, next) => {
-    console.error('❌ Internal Server Error:', err.stack);
+    console.error(err.stack);
     res.status(500).render('500');
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
