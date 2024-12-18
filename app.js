@@ -9,14 +9,9 @@ const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
 
 // Connect to MongoDB
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-mongoose.connection.on('connected', () => console.log('✅ MongoDB connected successfully!'));
-mongoose.connection.on('error', (err) => console.error('❌ MongoDB connection error:', err.message));
-mongoose.connection.on('disconnected', () => console.log('⚠️ MongoDB disconnected.'));
+mongoose.connect(MONGO_URI)
+    .then(() => console.log('✅ MongoDB connected successfully!'))
+    .catch((err) => console.error('❌ MongoDB connection error:', err.message));
 
 // Define Mongoose Schema and Model
 const waitingListSchema = new mongoose.Schema({
@@ -42,6 +37,15 @@ app.set('views', path.join(__dirname, 'views'));
 const isTelegramWebApp = (req) => {
     return req.get('User-Agent')?.includes('TelegramWebApp') || req.query.twa === 'true';
 };
+
+// Root route handler
+app.get('/', (req, res) => {
+    if (isTelegramWebApp(req)) {
+        res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
+    } else {
+        res.render('home');
+    }
+});
 
 // Route to render the waiting list page
 app.get('/waiting-list', (req, res) => {
@@ -71,8 +75,7 @@ app.post('/api/waiting-list', async (req, res) => {
     }
 });
 
-// General Routes
-app.get('/', (req, res) => res.render('home'));
+// Existing page routes
 app.get('/register', (req, res) => res.render('register'));
 app.get('/about', (req, res) => res.render('about'));
 app.get('/roadmap', (req, res) => res.render('roadmap'));
