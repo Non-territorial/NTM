@@ -12,6 +12,10 @@
             <img src="https://i.imgur.com/IM0F4QY.png" alt="glasses" class="logo-glasses">
             <h1 class="museum">NONTERRITORIAL MUSEUM</h1>
 
+            <button onclick="redirectToWaitingList('hosting')" class="button-large">
+                JOIN THE WAITING LIST
+            </button>
+
 
             <section>
                 <hr>
@@ -46,6 +50,11 @@
             <img src="https://i.imgur.com/sryvdsl.png" alt="Navigation Logo" class="logo">
         </footer>
     </div>
+    <script>
+        function redirectToWaitingList(source) {
+            window.location.href = `/waiting-list?source=${source}`;
+        }
+    </script>
 </body>
 </html>
 

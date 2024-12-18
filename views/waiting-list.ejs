@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting List</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="waiting-list">
+    <h1>JOIN THE WAITING LIST</h1>
+    <p id="source-text"></p>
+    <form id="waitingListForm" onsubmit="submitForm(event)">
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="hidden" id="source" name="source" value="<%= source %>">
+
+        <button type="submit" class="list">Join</button>
+    </form>
+    <p id="status"></p>
+
+</div>
+
+    <script>
+          async function submitForm(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const source = document.getElementById('source').value;
+
+        try {
+            const response = await fetch('/api/waiting-list', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, source }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('status').innerText = 'Successfully added to the waiting list!';
+            } else {
+                document.getElementById('status').innerText = `Error: ${result.error}`;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('status').innerText = 'An error occurred. Please try again.';
+        }
+    }
+
+    </script>
+</body>
+</html>
