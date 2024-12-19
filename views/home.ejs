@@ -6,42 +6,51 @@
     <title>NONTERRITORIAL MUSEUM</title>
     <link rel="stylesheet" href="/css/style.css">
     <script>
-        const tg = window.Telegram.WebApp; // Initialize Telegram WebApp
-        tg.ready(); // Signal to Telegram that your app is ready
-        console.log("Telegram WebApp initialized:", tg.initDataUnsafe);
-    
-        // Extract raw initData string
-        const initData = tg.initData; // Raw initData string
-        console.log("Raw initData:", initData);
-    
         try {
-            // Parse initData to extract parameters
-            const parsedData = new URLSearchParams(initData);
+            if (typeof window.Telegram !== 'undefined' && window.Telegram.WebApp) {
+                const tg = window.Telegram.WebApp; // Initialize Telegram WebApp
+                tg.ready(); // Signal to Telegram that your app is ready
+                console.log("Telegram WebApp initialized:", tg.initDataUnsafe);
     
-            // Extract and parse the user data (JSON format)
-            const userData = JSON.parse(parsedData.get("user"));
-            console.log("User Data:", userData);
+                // Extract raw initData string
+                const initData = tg.initData; // Raw initData string
+                console.log("Raw initData:", initData);
     
-            // Display user name on the page
-            if (userData?.first_name) {
-                document.body.innerHTML += `<p>Welcome, ${userData.first_name}!</p>`;
+                try {
+                    // Parse initData to extract parameters
+                    const parsedData = new URLSearchParams(initData);
+    
+                    // Extract and parse the user data (JSON format)
+                    const userData = JSON.parse(parsedData.get("user"));
+                    console.log("User Data:", userData);
+    
+                    // Display user name on the page
+                    if (userData?.first_name) {
+                        document.body.innerHTML += `<p>Welcome, ${userData.first_name}!</p>`;
+                    } else {
+                        console.log("No user data found in initData.");
+                    }
+                } catch (error) {
+                    console.error("Error parsing initData:", error);
+                }
+    
+                // Send initData to the server for validation
+                fetch(`/auth?initData=${encodeURIComponent(tg.initData)}`)
+                    .then((response) => response.text())
+                    .then((data) => {
+                        console.log("Server response:", data);
+                    })
+                    .catch((error) => {
+                        console.error("Error sending initData to server:", error);
+                    });
             } else {
-                console.log("No user data found in initData.");
+                console.warn("Telegram WebApp is not available. Running outside Telegram.");
             }
         } catch (error) {
-            console.error("Error parsing initData:", error);
+            console.error("Error initializing Telegram WebApp:", error);
         }
-    
-        // Send initData to the server for validation
-        fetch(`/auth?initData=${encodeURIComponent(tg.initData)}`)
-            .then((response) => response.text())
-            .then((data) => {
-                console.log("Server response:", data);
-            })
-            .catch((error) => {
-                console.error("Error sending initData to server:", error);
-            });
     </script>
+    
     
 </head>
 <body>
