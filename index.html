@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NT Museum Mini App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        console.log("Telegram WebApp initialized:", tg.initDataUnsafe);
+    </script>
 </head>
 <body>
     <div id="app">

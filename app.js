@@ -1,13 +1,15 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose'); // Import Mongoose
+const mongoose = require('mongoose');
+const crypto = require('crypto'); // For validating Telegram initData
 const app = express();
+require('dotenv').config();
 
 // Port configuration
 const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB
-const MONGO_URI = 'mongodb+srv://info:J8YwydCuC72vZJEm@ntm.t3mz0.mongodb.net/ntm?retryWrites=true&w=majority';
+// MongoDB connection
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://info:J8YwydCuC72vZJEm@ntm.t3mz0.mongodb.net/ntm?retryWrites=true&w=majority';
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -35,18 +37,63 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware to check if the request is from Telegram Mini App
-const isTelegramWebApp = (req) => {
-    return req.get('User-Agent')?.includes('TelegramWebApp') || req.query.twa === 'true';
+// Telegram-specific configuration
+const BOT_TOKEN = process.env.BOT_TOKEN; // Telegram bot token from .env file
+
+// Function to validate Telegram initData
+function validateTelegramData(initData) {
+    const parsedData = new URLSearchParams(initData);
+    const authData = {};
+    for (const [key, value] of parsedData.entries()) {
+        authData[key] = value;
+    }
+
+    const hash = authData['hash'];
+    delete authData['hash'];
+
+    const secret = crypto.createHash('sha256').update(BOT_TOKEN).digest();
+    const checkString = Object.keys(authData)
+        .sort()
+        .map((key) => `${key}=${authData[key]}`)
+        .join('\n');
+    const hmac = crypto
+        .createHmac('sha256', secret)
+        .update(checkString)
+        .digest('hex');
+
+    return hmac === hash;
+}
+
+// Middleware to validate Telegram requests
+const validateTelegramRequest = (req, res, next) => {
+    const initData = req.query.initData;
+    if (!initData || !validateTelegramData(initData)) {
+        console.error('Invalid or missing initData');
+        return res.status(403).send('Invalid Telegram authentication');
+    }
+    req.telegramUser = JSON.parse(new URLSearchParams(initData).get('user'));
+    next();
 };
 
-// Root route handler
-app.get('/', (req, res) => {
-    if (isTelegramWebApp(req)) {
-        res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
+// Middleware for local testing (bypass initData validation)
+const allowLocalTesting = (req, res, next) => {
+    const initData = req.query.initData;
+    if (!initData) {
+        console.log("Local testing: No initData provided.");
+        req.telegramUser = { first_name: 'Guest' }; // Fallback user for local testing
     } else {
-        res.render('home');
+        if (!validateTelegramData(initData)) {
+            return res.status(403).send('Invalid Telegram authentication');
+        }
+        req.telegramUser = JSON.parse(new URLSearchParams(initData).get('user'));
     }
+    next();
+};
+
+// Root route with Telegram validation (supports local testing)
+app.get('/', allowLocalTesting, (req, res) => {
+    const user = req.telegramUser;
+    res.render('home', { user: { firstName: user.first_name } });
 });
 
 // Route to render the waiting list page
@@ -55,8 +102,7 @@ app.get('/waiting-list', (req, res) => {
     res.render('waiting-list', { source });
 });
 
-
-// API Route to Handle Form Submission and Save to MongoDB
+// API Route to handle form submissions and save to MongoDB
 app.post('/api/waiting-list', async (req, res) => {
     try {
         const { email, source } = req.body;
@@ -78,25 +124,21 @@ app.post('/api/waiting-list', async (req, res) => {
     }
 });
 
-// Existing page routes
-app.get('/register', (req, res) => res.render('register'));
-app.get('/about', (req, res) => res.render('about'));
-app.get('/roadmap', (req, res) => res.render('roadmap'));
-app.get('/qa', (req, res) => res.render('qa'));
-app.get('/collect', (req, res) => res.render('collect'));
-app.get('/exhibit', (req, res) => res.render('exhibit'));
-app.get('/host', (req, res) => res.render('host'));
-app.get('/join', (req, res) => res.render('join'));
-app.get('/membership', (req, res) => res.render('membership'));
-app.get('/curators-glasses', (req, res) => res.render('curators-glasses'));
-
-// Catch-all route for Telegram Mini App
-app.get('*', (req, res, next) => {
-    if (isTelegramWebApp(req)) {
-        res.sendFile(path.join(__dirname, 'public', 'twa-index.html'));
-    } else {
-        next();
-    }
+// Additional page routes
+const pages = [
+    'register',
+    'about',
+    'roadmap',
+    'qa',
+    'collect',
+    'exhibit',
+    'host',
+    'join',
+    'membership',
+    'curators-glasses'
+];
+pages.forEach((page) => {
+    app.get(`/${page}`, (req, res) => res.render(page));
 });
 
 // Error handling for 404 (Not Found)

@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NONTERRITORIAL MUSEUM</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        console.log("Telegram WebApp initialized:", tg.initDataUnsafe);
+
+    // Send initData to the server for validation
+    fetch(`/auth?initData=${tg.initData}`)
+        .then((response) => response.text())
+        .then((data) => {
+            console.log('Server response:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    </script>
 </head>
 <body>
     <div class="container">
