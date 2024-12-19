@@ -10,6 +10,16 @@
         tg.ready();
         console.log("Telegram WebApp initialized:", tg.initDataUnsafe);
 
+        const initData = tg.initData; // Raw initData string
+        const parsedData = new URLSearchParams(initData); // Parse initData
+
+    // Extract user data
+    const userData = JSON.parse(parsedData.get("user"));
+    console.log("User Data:", userData);
+
+    // Example: Display user name
+    document.body.innerHTML += `<p>Welcome, ${userData.first_name}!</p>`;
+
     // Send initData to the server for validation
     fetch(`/auth?initData=${tg.initData}`)
         .then((response) => response.text())

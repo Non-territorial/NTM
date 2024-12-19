@@ -92,8 +92,12 @@ const allowLocalTesting = (req, res, next) => {
 
 // Root route with Telegram validation (supports local testing)
 app.get('/', allowLocalTesting, (req, res) => {
+    const initData = req.query.initData;
+    console.log("Received initData:", initData); // Log for debugging
+    
     const user = req.telegramUser;
     res.render('home', { user: { firstName: user.first_name } });
+    
 });
 
 // Route to render the waiting list page
