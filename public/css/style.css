@@ -33,13 +33,14 @@ body {
     gap: 60px;
     border: 0.5px solid white;
     border-radius: 10px;
+    
 }
 
 .logo-glasses {
     width: 150%;
     max-height: 400px;
     object-fit: contain;
-    margin-left: -82px;
+    margin-left: -85px;
     margin-bottom: -75px;
     margin-top: -50px;
 }
